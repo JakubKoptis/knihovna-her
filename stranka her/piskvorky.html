@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piškvorky</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Piškvorky</h1>
+
+<table id="piskvorky">
+    <tr>
+        <td onclick="hraj(0, 0)"></td>
+        <td onclick="hraj(0, 1)"></td>
+        <td onclick="hraj(0, 2)"></td>
+    </tr>
+    <tr>
+        <td onclick="hraj(1, 0)"></td>
+        <td onclick="hraj(1, 1)"></td>
+        <td onclick="hraj(1, 2)"></td>
+    </tr>
+    <tr>
+        <td onclick="hraj(2, 0)"></td>
+        <td onclick="hraj(2, 1)"></td>
+        <td onclick="hraj(2, 2)"></td>
+    </tr>
+</table>
+
+<script>
+    let hracNaTahu = "X";
+    let pole = [
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""]
+    ];
+
+    function vykresliPole() {
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                document.getElementById("piskvorky").rows[i].cells[j].innerHTML = pole[i][j];
+            }
+        }
+    }
+
+    function zkontrolujVyhru() {
+        for (let i = 0; i < 3; i++) {
+            if (pole[i][0] !== "" && pole[i][0] === pole[i][1] && pole[i][1] === pole[i][2]) {
+                return true; // Výhra na řádku
+            }
+
+            if (pole[0][i] !== "" && pole[0][i] === pole[1][i] && pole[1][i] === pole[2][i]) {
+                return true; // Výhra na sloupci
+            }
+        }
+
+        if (pole[0][0] !== "" && pole[0][0] === pole[1][1] && pole[1][1] === pole[2][2]) {
+            return true; // Výhra na diagonále
+        }
+
+        if (pole[0][2] !== "" && pole[0][2] === pole[1][1] && pole[1][1] === pole[2][0]) {
+            return true; // Výhra na diagonále
+        }
+
+        return false;
+    }
+
+    function hraj(radek, sloupec) {
+        if (pole[radek][sloupec] === "" && !zkontrolujVyhru()) {
+            pole[radek][sloupec] = hracNaTahu;
+            vykresliPole();
+
+            if (zkontrolujVyhru()) {
+                alert(`Hráč ${hracNaTahu} vyhrál!`);
+            } else {
+                hracNaTahu = (hracNaTahu === "X") ? "O" : "X";
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+.grid {
+    min-height: 100%;
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+img {
+    width: 230px;
+    height: 230px;
+    border-radius: 10px;
+}
+  
+a {
+    width: 230px;
+    height: 230px;
+}
+
+.sloupec {
+    margin: 11px;
+}
